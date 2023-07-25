@@ -11,7 +11,7 @@ export function eventListener(
   logs: { new (): ResultShowPlugin }[]
 ): EventTreeAble;
 
-export default function listenerDefaultEventTreer<
+export default function listenerDefaultEventTree<
   T extends EventName | EventName[]
 >(
   type: T,
