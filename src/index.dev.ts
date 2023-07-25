@@ -1,7 +1,7 @@
 import { EventTree } from "./Listener";
 import { LogShowPlugin } from "./LogPlugin/LogShowPlugin";
 import { DispatchEventInfo } from "./StepPlugin/DispatchEventInfo";
-import { VueEventStep } from "./StepPlugin/VueEventInfo";
+import { VueComponentStep } from "./StepPlugin/VueComponentStep";
 import { EventInfoPlugin, EventName, ResultShowPlugin } from "./type";
 
 export function eventListener(
@@ -24,7 +24,7 @@ export default function listenerDefaultEventTree(
     return type.map(($1) => {
       const tree = eventListener(
         $1,
-        [VueEventStep, DispatchEventInfo],
+        [VueComponentStep, DispatchEventInfo],
         [LogShowPlugin]
       );
       tree.addPlugins(stepPlugins.map((Con) => Reflect.construct(Con, [])));
@@ -34,7 +34,7 @@ export default function listenerDefaultEventTree(
   } else {
     const tree = eventListener(
       type,
-      [VueEventStep, DispatchEventInfo],
+      [VueComponentStep, DispatchEventInfo],
       [LogShowPlugin]
     );
     tree.addPlugins(stepPlugins.map((Con) => Reflect.construct(Con, [])));

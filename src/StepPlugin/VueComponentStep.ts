@@ -1,7 +1,6 @@
 import {
   EventInfoPlugin,
   EventName,
-  EventStatus,
   EventStep,
   EventTreeAble,
 } from "../type";
@@ -41,7 +40,7 @@ const getVNodeInfo = (
   return getVNode(node);
 };
 
-export class VueEventStep implements EventInfoPlugin {
+export class VueComponentStep implements EventInfoPlugin {
   pluginName = "VueEventStep";
 
   isVisiable = true;
@@ -77,10 +76,12 @@ export class VueEventStep implements EventInfoPlugin {
   clearPlugin(): void {}
 
   eventCeaseLog(step: VueEventStep, tree: EventTreeAble) {
-    console.log(
-      `${this.pluginName}：%c该事件,最后响应Vue组件:`,
-      "color: red",
-      step.vue_Node
-    );
+    this.isVue &&
+      this.isVisiable &&
+      console.log(
+        `${this.pluginName}：%c该事件,最后响应Vue组件:`,
+        "color: red",
+        step.vue_Node
+      );
   }
 }

@@ -7,7 +7,7 @@ export enum EventStatus {
 }
 
 export interface EventStep {
-  data: Date;
+  date: Date;
   type: EventName;
   status: EventStatus;
   target: EventTarget;

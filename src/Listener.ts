@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { EventInfoPlugin, EventName, EventStatus, EventStep, EventTreeAble, ResultShowPlugin } from './type';
-import { VueEventStep } from './StepPlugin/VueEventInfo';
-import { DispatchEventInfo } from './StepPlugin/DispatchEventInfo';
-import { LogShowPlugin } from './LogPlugin/LogShowPlugin';
 
 export class EventTree implements EventTreeAble {
   activeTime: Date;
@@ -46,7 +43,7 @@ export class EventTree implements EventTreeAble {
     const statusInfo = this.execStatus.get(status) || [];
     this.execStatus.set(status, statusInfo);
     const step = {} as EventStep;
-    step.data = new Date();
+    step.date = new Date();
     step.status = status;
     step.target = event.currentTarget as any;
     step.type = this.type;

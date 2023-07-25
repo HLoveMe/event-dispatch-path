@@ -1,6 +1,6 @@
 {
   "name": "event-dispatch-path",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
   "exports": {
     ".": {
       "default": "./index.js",
-      "types": "./dist/types/index.dev.d.ts"
+      "types": "./index.d.ts"
     }
   },
   "types": "index.d.ts",
@@ -34,6 +34,7 @@
     "@babel/preset-typescript": "^7.17.12",
     "@babel/runtime": "^7.18.3",
     "@babel/runtime-corejs3": "^7.18.3",
+    "@types/react": "^18.2.16",
     "babel-loader": "^8.2.3",
     "core-js": "^3.22.8",
     "less": "^4.1.2",
@@ -43,7 +44,5 @@
     "webpack": "^5.67.0",
     "webpack-cli": "^4.9.2"
   },
-  "dependencies": {
-    "event-dispatch-path": "^1.0.2"
-  }
+  "dependencies": {}
 }
