@@ -60,7 +60,7 @@ export class LogShowPlugin implements ResultShowPlugin {
       ];
     });
     console.log(
-      `-------------------------start-----------------------------------`
+      `-------------------------Start(${tree.type})-原生事件-----------------------------------`
     );
     console.table(extable);
     console.log(
@@ -70,7 +70,7 @@ export class LogShowPlugin implements ResultShowPlugin {
     );
     tree.plugins.forEach(($1) => $1.eventCeaseLog(lastStep, tree));
     console.log(
-      `--------------------------end----------------------------------`
+      `--------------------------End(${tree.type})-原生事件----------------------------------`
     );
   }
 }
