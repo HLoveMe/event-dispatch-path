@@ -3,23 +3,32 @@ import { EventInfoPlugin, EventName, EventStatus, EventStep } from "../type";
 import { EventTree } from "../Listener";
 
 interface ReactEventStep extends EventStep {
-  component?: any;
+  component?: {
+    target: { name: string };
+    file?: string;
+  };
 }
 
+const reactPropsKeys = ["__reactEventHandlers$", "__reactProps$"];
+const reactInstanceKeys = ["__reactInternalInstance$", "__reactFiber$"];
 const getReactKey = () => {
-  const targets = document.querySelectorAll("*[id]");
-  for (let index = 0; index < targets.length; index++) {
-    const item = targets[index];
-    const eventKey = Object.keys(item).find(($1) =>
-      $1.startsWith("__reactEventHandlers$")
-    );
-    const instanceKey = Object.keys(item).find(($1) =>
-      $1.startsWith("__reactInternalInstance$")
-    );
-    if (eventKey && instanceKey) {
-      return [eventKey, instanceKey];
+  const tags = ["div", "img", "a", "span", "p"];
+  for (let jndex = 0; jndex < tags.length; jndex++) {
+    const targets = document.getElementsByTagName(tags[jndex]);
+    for (let index = 0; index < targets.length; index++) {
+      const item = targets[index];
+      const eventKey = Object.keys(item).find(($1) =>
+        reactPropsKeys.some(($2) => $1.startsWith($2))
+      );
+      const instanceKey = Object.keys(item).find(($1) =>
+        reactInstanceKeys.some(($2) => $1.startsWith($2))
+      );
+      if (eventKey && instanceKey) {
+        return [eventKey, instanceKey];
+      }
     }
   }
+
   return ["", ""];
 };
 
@@ -86,12 +95,18 @@ export class ReactEventStepInfo implements EventInfoPlugin {
                       target: sEvent.currentTarget,
                       status,
                       event: sEvent as any,
-                      component:
-                        sEvent.currentTarget[
+                      component: {
+                        target:
+                          sEvent.currentTarget[
+                            ReactEventStepInfo.ReactInstanceName
+                          ]?._debugOwner?.elementType,
+                        file: sEvent.currentTarget[
                           ReactEventStepInfo.ReactInstanceName
-                        ]?._debugOwner?.elementType,
+                        ]?._debugSource?.fileName,
+                      },
                       function: res,
                     };
+                    console.log("执行合成事件", step);
                     arr.push(step as ReactEventStep);
                   };
                 }

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-react": "tsc -p tsconfig.test.json",
     "types": "tsc -p ./tsconfig.types.json",
     "build_web": "webpack --config webpack.config.dev.js &&  webpack --config webpack.config.prod.js",
     "build": "npm run build_web && npm run types"

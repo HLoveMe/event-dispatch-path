@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "dome/react-dome/src/events",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "importHelpers": true,
+    "module": "esnext",
+    "skipLibCheck": true,
+    "watch": true,
+    "moduleResolution": "node"
+  },
+  "include": ["src/**/*.ts", "src/**/*.js"],
+  "exclude": ["node_modules"]
+}
