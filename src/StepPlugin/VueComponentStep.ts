@@ -3,13 +3,9 @@ import {
   EventName,
   EventStep,
   EventTreeAble,
+  VueEventStep,
 } from "../type";
 
-export interface VueEventStep extends EventStep {
-  vue_Node?: {
-    file: string;
-  };
-}
 type Node = {
   type?: { __file?: string; name?: string };
   __v_isVNode: boolean;
@@ -57,7 +53,7 @@ export class VueComponentStep implements EventInfoPlugin {
 
   handle(step: EventStep): EventStep {
     if (this.isVue === false) return step;
-    Object.defineProperty(step, "vue_Node", {
+    Object.defineProperty(step, "vue", {
       get() {
         const vnode = getVNodeInfo(this.target);
         return vnode;
@@ -68,20 +64,20 @@ export class VueComponentStep implements EventInfoPlugin {
 
   getDescribe(stepInfo: VueEventStep): string {
     if (this.isVue === false) return "";
-    return stepInfo?.vue_Node ? "Vue:is_vue" : "Vue:no_vue";
+    return stepInfo?.vue ? "Vue:is_vue" : "Vue:no_vue";
   }
 
   clearStep(stepInfo: EventStep) {}
 
   clearPlugin(): void {}
 
-  eventCeaseLog(step: VueEventStep, tree: EventTreeAble) {
-    this.isVue &&
-      this.isVisiable &&
+  eventCeaseLog(tree: EventTreeAble, lastStep: VueEventStep) {
+    if (this.isVue && this.isVisiable) {
       console.log(
         `${this.pluginName}：%c该事件,最后响应Vue组件:`,
         "color: red",
-        step.vue_Node
+        lastStep.vue
       );
+    }
   }
 }

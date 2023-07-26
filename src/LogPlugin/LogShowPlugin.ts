@@ -1,3 +1,4 @@
+import { ConstantString } from "../Constant";
 import {
   ResultShowPlugin,
   EventStatus,
@@ -54,23 +55,22 @@ export class LogShowPlugin implements ResultShowPlugin {
       if (!item) return [];
       return [
         ...$1.map(($2) => {
-          return $2 ? `${$2.step.status} : ${$2.infos.join("\r\n")}` : "";
+          return $2
+            ? `${$2.step.status} : ${$2.infos.filter(($1) => !!$1).join("=>")}`
+            : "";
         }),
         item.step.target,
       ];
     });
-    console.log(
-      `-------------------------Start(${tree.type})-原生事件-----------------------------------`
-    );
+    
+    ConstantString.SourceEventStart && console.log(ConstantString.SourceEventStart);
     console.table(extable);
     console.log(
-      `%c事件(${tree.type})流结束,结束于(${stepName}),最后响应元素:`,
+      `%cJS原生事件(${tree.type})流结束,结束于(${stepName}),最后响应元素:`,
       "color: red",
       [lastStep.target]
     );
-    tree.plugins.forEach(($1) => $1.eventCeaseLog(lastStep, tree));
-    console.log(
-      `--------------------------End(${tree.type})-原生事件----------------------------------`
-    );
+    
+    ConstantString.SourceEventEnd && console.log(ConstantString.SourceEventEnd);
   }
 }

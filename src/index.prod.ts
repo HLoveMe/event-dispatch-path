@@ -15,6 +15,9 @@ class ShamEventTree implements EventTreeAble {
   plugins: EventInfoPlugin[];
   resulePlugin: any[];
   execStatus: Map<EventStatus, EventStep[]>;
+  getEventStopStep(): EventStep {
+    return null;
+  }
 }
 
 export function eventListener(

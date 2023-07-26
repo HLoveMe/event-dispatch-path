@@ -1,9 +1,9 @@
 export type EventName = keyof WindowEventMap;
 
 export enum EventStatus {
-  capture = '⇓',
-  target = '⇌',
-  bubbling = '⇑',
+  capture = "⇓",
+  target = "⇌",
+  bubbling = "⇑",
 }
 
 export interface EventStep {
@@ -13,8 +13,20 @@ export interface EventStep {
   target: EventTarget;
   event: Event;
   isStop: boolean;
-  vue_Node?: {
+}
+
+export interface VueEventStep extends EventStep {
+  vue?: {
     file: string;
+  };
+}
+
+export interface ReactEventStep extends EventStep {
+  react: {
+    file: string;
+    component: { name: string };
+    function: Function;
+    isStop: boolean;
   };
 }
 
@@ -33,7 +45,7 @@ export interface EventInfoPlugin {
   // 完成一次监听流
   clearPlugin(): void;
 
-  eventCeaseLog(step: EventStep, tree: any): void;
+  eventCeaseLog(tree: any, lastStep?: EventStep): void;
 
   /***
   ------------one event start 
@@ -66,6 +78,7 @@ export interface EventTreeAble {
   plugins: EventInfoPlugin[];
   resulePlugin: any[];
   execStatus: Map<EventStatus, EventStep[]>;
+  getEventStopStep(): EventStep;
 }
 
 export interface ResultShowPlugin {

@@ -109,7 +109,7 @@ const isSupport = (target: EventTarget) =>
 export class DispatchEventInfo implements EventInfoPlugin {
   lastExecInfo?: { source: Function; event: Event } = undefined;
 
-  pluginName = "ChromeEventInfoPlugin";
+  pluginName = "DispatchEventInfo";
 
   currentPaths: EventTarget[];
 
@@ -146,7 +146,7 @@ export class DispatchEventInfo implements EventInfoPlugin {
     const that = this;
     !target.execCallBack[type] &&
       (target.execCallBack[type] = function (event: Event, source: Function) {
-        if (event.cancelBubble === true) {
+        if (event.defaultPrevented === true) {
           that.lastExecInfo = { source, event };
         }
       });
@@ -165,13 +165,11 @@ export class DispatchEventInfo implements EventInfoPlugin {
     this.lastExecInfo = undefined;
   }
 
-  eventCeaseLog(step: EventStep, tree: EventTreeAble) {
-    if (step && this.lastExecInfo?.source) {
-      console.log(
-        `${this.pluginName}：%c该事件,事件流被取消于:`,
-        "color: red",
-        [this.lastExecInfo.source]
-      );
+  eventCeaseLog(tree: EventTreeAble) {
+    if (this.lastExecInfo?.source) {
+      console.log(`%cJS原生事件流被中断于:`, "color: red", [
+        this.lastExecInfo.source,
+      ]);
     }
   }
 }
