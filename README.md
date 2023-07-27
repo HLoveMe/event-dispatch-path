@@ -53,18 +53,18 @@ listenerDefaultEventTree(['click','keyup'])
    |-|-|⇓ react:原生事件|-|-|⇑ react:原生事件|-|-|div.content|
    |-|-|-|⇌ react:原生事件|⇌ react:原生事件|-|-|-|button|
 
-    ```
-    JS原生事件(click)流结束,结束于(冒泡),最后响应元素: [document]
-    React事件,捕获冒泡流程执行完成，无中断。终止于： [div#root]
-    ```
-    或者
-    ```
-    JS原生事件(click)流结束,结束于(冒泡),最后响应元素: [div#root]
-    React事件,捕获冒泡流程执行完成,被中断。            
-        文件路径：/xx/x/App.js            
-        组件：【App】            
-        在该方法中中断： [ƒ]
-    ```
+```
+JS原生事件(click)流结束,结束于(冒泡),最后响应元素: [document]
+React事件,捕获冒泡流程执行完成，无中断。终止于： [div#root]
+```
+或者
+```
+JS原生事件(click)流结束,结束于(冒泡),最后响应元素: [div#root]
+React事件,捕获冒泡流程执行完成,被中断。            
+    文件路径：/xx/x/App.js            
+    组件：【App】            
+    在该方法中中断： [ƒ]
+```
 
 
 
@@ -77,15 +77,16 @@ listenerDefaultEventTree(['click','keyup'])
    |-|⇓ react:原生事件|-|-|-|-|⇑ react:原生事件|-|div#root|
    |-|-|⇓ react:原生事件|-|-|⇑ react:原生事件|-|-|div.content|
    |-|-|-|⇌ react:原生事件|⇌ react:原生事件|-|-|-|button|
-    ```
-    JS原生事件(click)流结束,结束于(冒泡),最后响应元素: [document]
-    React事件,捕获冒泡流程执行完成，无中断。终止于： [document]
-    ```
-    或者
-    ```
-    JS原生事件(click)流结束,结束于(冒泡),最后响应元素: [document]
-    React事件,捕获冒泡流程执行完成,被中断。            
-        文件路径：/xx/x/App.js            
-        组件：【App】            
-        在该方法中中断： [ƒ]
-    ```
+
+```
+JS原生事件(click)流结束,结束于(冒泡),最后响应元素: [document]
+React事件,捕获冒泡流程执行完成，无中断。终止于： [document]
+```
+或者
+```
+JS原生事件(click)流结束,结束于(冒泡),最后响应元素: [document]
+React事件,捕获冒泡流程执行完成,被中断。            
+    文件路径：/xx/x/App.js            
+    组件：【App】            
+    在该方法中中断： [ƒ]
+```
