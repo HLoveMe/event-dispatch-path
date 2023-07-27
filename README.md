@@ -13,24 +13,26 @@
 ## 如果你任然需要该库的协助
   
   ### 安装
-    ```
-    npm install event-dispatch-path
-    ```
+  
+ ```
+ npm install event-dispatch-path
+ ```
+    
   ### 使用 (保证在项目入口进行加载)
   
-    ```typescript
-    import listenerDefaultEventTree from "event-dispatch-path";
+```typescript
+import listenerDefaultEventTree from "event-dispatch-path";
 
-    // 你需要监听调试的方法名
-    listenerDefaultEventTree('click')
-    listenerDefaultEventTree(['click','keyup'])
-    ```
+// 你需要监听调试的方法名
+listenerDefaultEventTree('click')
+listenerDefaultEventTree(['click','keyup'])
+```
   ### 打包
-    ```
-    使用webpack等类似构建工具。在打包环境为process.env.NODE_ENV === "production"时。
-    1：该库仅仅在调试期间发挥作用
-    2：不需要做任何更改，该库在打包后不会执行任何代码。
-    ```
+```
+使用webpack等类似构建工具。在打包环境为process.env.NODE_ENV === "production"时。
+1：该库仅仅在调试期间发挥作用
+2：不需要做任何更改，该库在打包后不会执行任何代码。
+```
   ### Vue项目支持
 
 
