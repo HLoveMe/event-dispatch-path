@@ -10,7 +10,7 @@
   
 
 
-* 如果你任然需要该库的协助
+## 如果你任然需要该库的协助
   
   ### 安装
     ```
@@ -34,23 +34,22 @@
   ### Vue项目支持
 
 
-    |1|2|3|4|5|6|7|8|9|
-    |-|-|-|-|-|-|-|-|-|-|
-    |⇓ Vue:no_vue|-|-|-|-|-|-|⇑ Vue:is_vue|document|
-    |-|⇓ Vue:no_vue|-|-|-|-|⇑ Vue:is_vue|-|div#root(Root节点)|
-    |-|-|⇓ Vue:is_vue|-|-|⇑ Vue:is_vue|-|-|div.content|
-    |-|-|-|⇌ Vue:no_vue|⇌ Vue:no_vue|-|-|-|button|
+   |1|2|3|4|5|6|7|8|9|
+   |-|-|-|-|-|-|-|-|-|
+   |⇓ Vue:no_vue|-|-|-|-|-|-|⇑ Vue:is_vue|document|
+   |-|⇓ Vue:no_vue|-|-|-|-|⇑ Vue:is_vue|-|div#root(Root节点)|
+   |-|-|⇓ Vue:is_vue|-|-|⇑ Vue:is_vue|-|-|div.content|
+   |-|-|-|⇌ Vue:no_vue|⇌ Vue:no_vue|-|-|-|button|
 
 
   ### React项目(新版 合成事件由React App根节点进行模拟派发) 输入内容如下
-  
-  
-    |1|2|3|4|5|6|7|8|9|
-    |-|-|-|-|-|-|-|-|-|-|
-    |⇓ react:原生事件|-|-|-|-|-|-|⇑ react:原生事件|document|
-    |-|⇓ react:原生事件|-|-|-|-|⇑ react:原生事件|-|div#root(Root节点)|
-    |-|-|⇓ react:原生事件|-|-|⇑ react:原生事件|-|-|div.content|
-    |-|-|-|⇌ react:原生事件|⇌ react:原生事件|-|-|-|button|
+
+   |1|2|3|4|5|6|7|8|9|
+   |-|-|-|-|-|-|-|-|-|
+   |⇓ react:原生事件|-|-|-|-|-|-|⇑ react:原生事件|document|
+   |-|⇓ react:原生事件|-|-|-|-|⇑ react:原生事件|-|div#root(Root节点)|
+   |-|-|⇓ react:原生事件|-|-|⇑ react:原生事件|-|-|div.content|
+   |-|-|-|⇌ react:原生事件|⇌ react:原生事件|-|-|-|button|
 
     ```
     JS原生事件(click)流结束,结束于(冒泡),最后响应元素: [document]
@@ -70,12 +69,12 @@
   ### Raect项目(旧版 合成事件由节点document进行模拟派发) 
 
   
-     |1|2|3|4|5|6|7|8|9|
-    |-|-|-|-|-|-|-|-|-|-|
-    |⇓ react:原生事件|-|-|-|-|-|-|⇑ react:原生事件|document|
-    |-|⇓ react:原生事件|-|-|-|-|⇑ react:原生事件|-|div#root|
-    |-|-|⇓ react:原生事件|-|-|⇑ react:原生事件|-|-|div.content|
-    |-|-|-|⇌ react:原生事件|⇌ react:原生事件|-|-|-|button|
+   |1|2|3|4|5|6|7|8|9|
+   |-|-|-|-|-|-|-|-|-|
+   |⇓ react:原生事件|-|-|-|-|-|-|⇑ react:原生事件|document|
+   |-|⇓ react:原生事件|-|-|-|-|⇑ react:原生事件|-|div#root|
+   |-|-|⇓ react:原生事件|-|-|⇑ react:原生事件|-|-|div.content|
+   |-|-|-|⇌ react:原生事件|⇌ react:原生事件|-|-|-|button|
     ```
     JS原生事件(click)流结束,结束于(冒泡),最后响应元素: [document]
     React事件,捕获冒泡流程执行完成，无中断。终止于： [document]
