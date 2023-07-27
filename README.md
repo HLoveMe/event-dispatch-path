@@ -12,11 +12,11 @@
 
 * 如果你任然需要该库的协助
   
-  * 安装
+  ### 安装
     ```
     npm install event-dispatch-path
     ```
-  * 使用 (保证在项目入口进行加载)
+  ### 使用 (保证在项目入口进行加载)
   
     ```typescript
     import listenerDefaultEventTree from "event-dispatch-path";
@@ -25,13 +25,15 @@
     listenerDefaultEventTree('click')
     listenerDefaultEventTree(['click','keyup'])
     ```
-  * 打包
+  ### 打包
     ```
     使用webpack等类似构建工具。在打包环境为process.env.NODE_ENV === "production"时。
     1：该库仅仅在调试期间发挥作用
     2：不需要做任何更改，该库在打包后不会执行任何代码。
     ```
-  * Vue项目支持
+  ### Vue项目支持
+
+
     |1|2|3|4|5|6|7|8|9|
     |-|-|-|-|-|-|-|-|-|-|
     |⇓ Vue:no_vue|-|-|-|-|-|-|⇑ Vue:is_vue|document|
@@ -40,7 +42,7 @@
     |-|-|-|⇌ Vue:no_vue|⇌ Vue:no_vue|-|-|-|button|
 
 
-  * React项目(新版 合成事件由React App根节点进行模拟派发) 输入内容如下
+  ### React项目(新版 合成事件由React App根节点进行模拟派发) 输入内容如下
   
   
     |1|2|3|4|5|6|7|8|9|
@@ -65,7 +67,9 @@
 
 
 
-  * Raect项目(旧版 合成事件由节点document进行模拟派发) 
+  ### Raect项目(旧版 合成事件由节点document进行模拟派发) 
+
+  
      |1|2|3|4|5|6|7|8|9|
     |-|-|-|-|-|-|-|-|-|-|
     |⇓ react:原生事件|-|-|-|-|-|-|⇑ react:原生事件|document|
