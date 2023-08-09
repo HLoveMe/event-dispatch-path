@@ -8,75 +8,17 @@ import {
 } from "../type";
 import { EventTree } from "../Listener";
 import { ConstantString } from "../Constant";
+import { getReactInfoKey, isReact, isRootElement } from "../EventUtil";
 
 type Log = (tree: EventTree, lastStep: ReactEventStep) => void;
 
-// const reactPropsKeys = ["__reactEventHandlers$", "__reactProps$"];
-// const reactInstanceKeys = ["__reactInternalInstance$", "__reactFiber$"];
-// const getReactKey = () => {
-//   const tags = ["div", "img", "a", "span", "p"];
-//   for (let jndex = 0; jndex < tags.length; jndex++) {
-//     const targets = document.getElementsByTagName(tags[jndex]);
-//     for (let index = 0; index < targets.length; index++) {
-//       const item = targets[index];
-//       const eventKey = Object.keys(item).find(($1) =>
-//         reactPropsKeys.some(($2) => $1.startsWith($2))
-//       );
-//       const instanceKey = Object.keys(item).find(($1) =>
-//         reactInstanceKeys.some(($2) => $1.startsWith($2))
-//       );
-//       if (eventKey && instanceKey) {
-//         return [eventKey, instanceKey];
-//       }
-//     }
-//   }
+const isCaptureEvent = (name: string) =>
+  name.startsWith("on") && name.endsWith("Capture");
 
-//   return ["", ""];
-// };
-
-const isRootElement = (target: any) => {
-  const { stateNode } = target;
-  return stateNode.constructor.name === "FiberRootNode";
-};
-const getReactKey = () => {
-  let eventKey = "";
-  let instanceKey = "";
-  let randomId = "";
-  const startTag = "__react";
-  const tags = ["div", "span", "img"];
-  for (let index = 0; index < tags.length; index++) {
-    const eles = document.getElementsByTagName(tags[index]);
-    for (let jndex = 0; jndex < eles.length; jndex++) {
-      if (eventKey && instanceKey && randomId) return [eventKey, instanceKey];
-      const ele = eles[jndex];
-      const keys = Object.keys(ele);
-      for (let kndex = 0; kndex < keys.length; kndex++) {
-        const $1 = keys[kndex];
-        if (
-          $1.startsWith(startTag) &&
-          ((randomId && $1.endsWith(randomId)) || randomId === "")
-        ) {
-          const value = Reflect.get(ele, $1);
-          if (
-            !(
-              value &&
-              value.constructor.name === "FiberNode" &&
-              isRootElement(value)
-            )
-          ) {
-            if (value && value.constructor.name === "FiberNode") {
-              instanceKey = $1;
-              randomId = $1.split("$")[1];
-            } else if (randomId && $1.endsWith(randomId)) {
-              eventKey = $1;
-            }
-          }
-        }
-        if (eventKey && instanceKey && randomId) return [eventKey, instanceKey];
-      }
-    }
-  }
-  return ["", ""];
+const getEventStatus = (name: string, event: SyntheticEvent) => {
+  if (isCaptureEvent(name)) return EventStatus.capture;
+  if (event.currentTarget === event.target) return EventStatus.target;
+  return EventStatus.bubbling;
 };
 
 const getRootTarget = (paths: EventTarget[]) => {
@@ -97,15 +39,6 @@ const getRootTarget = (paths: EventTarget[]) => {
     }
   }
   return [null, null, null];
-};
-
-const isCaptureEvent = (name: string) =>
-  name.startsWith("on") && name.endsWith("Capture");
-
-const getEventStatus = (name: string, event: SyntheticEvent) => {
-  if (isCaptureEvent(name)) return EventStatus.capture;
-  if (event.currentTarget === event.target) return EventStatus.target;
-  return EventStatus.bubbling;
 };
 
 export class ReactEventStepInfo implements EventInfoPlugin {
@@ -129,11 +62,11 @@ export class ReactEventStepInfo implements EventInfoPlugin {
 
   onWindowDispatch(type: EventName, event: Event) {
     if (ReactEventStepInfo.ReactEventHandleName.length === 0) {
-      const [eventKey, instanceKey] = getReactKey();
+      const [eventKey, instanceKey] = getReactInfoKey();
       ReactEventStepInfo.ReactEventHandleName = eventKey;
       ReactEventStepInfo.ReactInstanceName = instanceKey;
       ReactEventStepInfo.ReactEventHandleNameOld = `${ReactEventStepInfo.ReactEventHandleName}_Source`;
-      this.isReact = !!ReactEventStepInfo.ReactEventHandleName;
+      this.isReact = isReact();
       this.isVisiable = this.isReact;
     }
     if (this.isReact && this.isVisiable) {
@@ -259,7 +192,11 @@ export class ReactEventStepInfo implements EventInfoPlugin {
           );
       } else {
         ConstantString.ReactEventNoStop &&
-          console.log(`%c${ConstantString.ReactEventNoStop}终止于：`, "color:red",[lastStep]);
+          console.log(
+            `%c${ConstantString.ReactEventNoStop}终止于：`,
+            "color:red",
+            [lastStep]
+          );
       }
     }.bind(this, tree, lastStep);
   }

@@ -1,3 +1,4 @@
+import { isVue } from "../EventUtil";
 import {
   EventInfoPlugin,
   EventName,
@@ -44,7 +45,7 @@ export class VueComponentStep implements EventInfoPlugin {
   isVue = false;
 
   constructor() {
-    this.isVue = !!(window as any).__VUE__;
+    this.isVue = isVue()
   }
 
   onWindowDispatch(type: EventName, event: Event): void {
