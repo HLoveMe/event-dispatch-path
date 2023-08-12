@@ -90,3 +90,14 @@ React事件,捕获冒泡流程执行完成,被中断。
     组件：【App】            
     在该方法中中断： [ƒ]
 ```
+
+### 插件机制
+#### EventInfoPlugin 支持对每一步监听进行处理。
+```js
+ReactEventStepInfo 内部类 对React合成事件的支持
+VueComponentStep  内部类 对Vue事件支持 对执行情况(在哪个组件，是否是Vue组件)进行判定
+```
+#### ResultShowPlugin 可以对事件监听结果进行处理，已满足不同需求。
+```js
+LogShowPlugin 内部类 将结果格式化输出在控制台
+```
