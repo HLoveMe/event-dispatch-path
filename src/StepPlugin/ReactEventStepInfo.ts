@@ -52,7 +52,7 @@ export class ReactEventStepInfo implements EventInfoPlugin {
 
   isVisiable = true;
 
-  isReact = false;
+  isReact: boolean | undefined = undefined;
 
   paths: EventTarget[];
 
@@ -61,7 +61,10 @@ export class ReactEventStepInfo implements EventInfoPlugin {
   log?: Log;
 
   onWindowDispatch(type: EventName, event: Event) {
-    if (ReactEventStepInfo.ReactEventHandleName.length === 0) {
+    if (
+      ReactEventStepInfo.ReactEventHandleName.length === 0 &&
+      this.isReact === undefined
+    ) {
       const [eventKey, instanceKey] = getReactInfoKey();
       ReactEventStepInfo.ReactEventHandleName = eventKey;
       ReactEventStepInfo.ReactInstanceName = instanceKey;

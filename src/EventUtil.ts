@@ -75,7 +75,7 @@ function getReactInfoKey(): string[] {
   reactInfo.keys = result as [string, string];
   reactInfo.isInit = true;
   reactInfo.isReact =
-    result.length === 2 && result.every(($1) => $1.length >= 0);
+    result.length === 2 && result.every(($1) => $1.length >= 1);
   return result;
 }
 
